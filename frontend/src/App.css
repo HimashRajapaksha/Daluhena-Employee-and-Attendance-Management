@@ -1,0 +1,922 @@
+/* Add background color */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle, #E1E587, #1E421D);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.fertilizer-form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.fertilizer-form-wrapper {
+  max-width: 900px; /* Adjusted max-width */
+  width: 100%; /* Added width */
+  padding: 5px;
+  border-radius: 20px; /* Add border radius */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+.fertilizer-form-group {
+  margin-bottom: 20px;
+}
+
+.fertilizer-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.fertilizer-input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #1E421D;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.fertilizer-btn-primary {
+  background-color: #32CD32;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.fertilizer-btn-primary:hover {
+  background-color: #1E421D; /* Changed hover color */
+  color: #fff; /* Changed text color */
+}
+
+.fertilizer-btn-secondary {
+  background-color: #808080; /* Gray background */
+  color: #fff; /* Text color */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding */
+  border-radius: 4px; /* Border radius */
+  cursor: pointer; /* Cursor style */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.fertilizer-btn-secondary:hover {
+  background-color: #A9A9A9; /* Lighter gray background on hover */
+}
+
+.fertilizer-alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.fertilizer-alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.fertilizer-text-danger {
+  color: #ED4337; /* Text color for error messages */
+  font-size: 14px; /* Font size */
+  margin-top: 5px; /* Margin at the top of the error message */
+}
+
+.fertilizer-brand {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #1E421D;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.fertilizer-brand span {
+  display: block;
+  color: white;
+  font-weight: bold;
+}
+
+.fertilizer-side-nav {
+  height: auto;
+  max-height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #FFFFFFCC; /* Transparent white background */
+  padding-top: 5px;
+  padding-bottom: 60px;
+  border-radius: 15px;
+  margin: 10px;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.fertilizer-navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fertilizer-nav-item {
+  padding: 10px;
+  border-radius: 5px;
+  transition: border-radius 0.3s, background-color 0.3s;
+  text-align: center;
+}
+
+.fertilizer-nav-link {
+  text-decoration: none;
+  font-size: 16px;
+  color: #1E421D; /* Changed text color */
+  padding: 12px;
+  display: inline-block;
+  width: 150px;
+  border: 1px solid #1E421D; /* Add border */
+  border-radius: 50px; /* Add border radius */
+  margin-bottom: 5px; /* Add margin bottom to separate links */
+}
+
+.fertilizer-nav-link:hover,
+.fertilizer-nav-link:focus { /* Add :focus pseudo-class */
+  text-decoration: none; /* Remove underline on hover */
+  background-color: #1E421D; /* Changed hover color */
+  color: #fff; /* Changed text color */
+  border-radius: 50px;
+}
+
+.fertilizer-active {
+  background-color: #1E421D;
+  color: #fff;
+  border-radius: 50px;
+}
+
+.fertilizer-nav-link:hover img,
+.fertilizer-nav-link:focus img,
+.fertilizer-active img {
+  filter: brightness(0) invert(1); /* Change icon color to white */
+}
+
+.fertilizer-logout-btn {
+  background-color: #d32000; /* Change to your desired color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.fertilizer-logout-btn:hover {
+  background-color: #FF4500; /* Change to your desired hover color */
+}
+
+.fertilizer-tile {
+  background-color: #E1E587; /* Background color for the tile */
+  padding: 10px; /* Padding around the tile content */
+  border-radius: 15px; /* Border radius for rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Improved shadow effect */
+  margin-bottom: 0px; /* Spacing between tiles */
+  text-align: center; /* Center align content */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  position: relative; /* Position for pseudo-element */
+}
+
+.fertilizer-tile::after {
+  content: ""; /* Add pseudo-element for gradient overlay */
+  position: absolute; /* Position the pseudo-element */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.05)); /* Semi-transparent gradient overlay */
+  border-radius: 15px; /* Match border radius */
+  pointer-events: none; /* Ensure the overlay doesn't interfere with mouse events */
+}
+
+.fertilizer-tile:hover {
+  background-color: #f5f5f5; /* Background color on hover */
+  transform: translateY(-3px); /* Add slight lift effect */
+}
+
+.fertilizer-tile h2 {
+  margin-bottom: 10px; /* Add margin below heading */
+  color: #333; /* Heading text color */
+  font-size: 22px; /* Increase heading font size */
+}
+
+.fertilizer-tile p {
+  margin-bottom: 0; /* Remove margin below paragraph */
+  color: #666; /* Paragraph text color */
+}
+
+.fertilizer-tile p:last-child {
+  margin-bottom: 15px; /* Add extra margin to last paragraph */
+}
+
+.fertilizer-tile:hover h2 {
+  color: #1E421D; /* Heading text color on hover */
+}
+
+.fertilizer-tile:hover p {
+  color: #444; /* Paragraph text color on hover */
+}
+
+.fertilizer-transparent-box {
+  background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+  padding: 71px; /* Adjusted padding */
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px; /* Adjusted margin-top */
+  margin-bottom: 20px;
+  margin-left: 270px; /* Adjusted margin-left to match the width of the side nav panel */
+  margin-right: 10px;
+} 
+
+.fertilizer-report-container {
+  margin-left: 270px; /* Adjust this value according to your side navigation panel width */
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin-top: 10px;
+  border-radius: 15px;
+  margin-right: 10px;
+
+}
+
+.fertilizer-calendar-container {
+  background-color: #ffffff; /* Adjust as needed */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.fertilizer-report-controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.fertilizer-date-input {
+ 
+  width: 200px; /* width */
+  height: 40px; /* height */
+  border-radius: 15px; 
+  border: 1px solid #ced4da; /* Refined border width */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for a subtle inset effect */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for interactions */
+  margin-bottom: 10px;
+  margin-right: 250px;
+  padding-right: 10px;
+  padding-left: 20px;
+  
+}
+.fertilizer-date-input:focus {
+  border-color: #80bdff; /* Highlighted border color on focus */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Outer glow effect on focus */
+}
+
+.fertilizer-confirmation-box {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+  margin: auto;
+}
+
+.fertilizer-confirmation-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.fertilizer-confirmation-box p {
+  margin-bottom: 10px;
+}
+
+.fertilizer-confirmation-box button {
+  margin-right: 10px;
+}
+
+.fertilizer-btn-warning {
+  background-color: #FFA500; /* Orange background */
+  color: #000000; /* Text color */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding */
+  border-radius: 4px; /* Border radius */
+  cursor: pointer; /* Cursor style */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.fertilizer-btn-warning:hover {
+  background-color: #FFD700; 
+}
+
+.fertilizer-form-group-col {
+  display: flex; 
+  flex-direction: column; 
+  margin-right: 10px; 
+}
+
+.fertilizer-form-row {
+  display: flex; 
+  justify-content: space-between; 
+  padding-bottom: 10px;
+}
+
+button:focus {
+  outline: none;
+}
+
+
+
+.emp-att-container { 
+  background-color: white;
+  border-radius: 15px;
+  max-width: calc(100% - 255px); /* Adjust the max-width to  layout */
+  margin-left: 250px; /* Adjust margin-left to match layout */
+  margin-right: 15px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+.container { 
+  background-color: white;
+  border-radius: 15px;
+  max-width: calc(100% - 230px); 
+  margin-left: 250px; 
+  margin-right: 15px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+.emp-att-background-container {
+  background-image: url('./images/formbg.jpeg'); /* Path to background image */
+  background-size: cover; /* Adjust to cover the container */
+  background-position: center; /* Center the background image */
+  min-height: 100vh; /* Ensure the container fills the viewport vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ h1 {
+  text-align: center;
+  margin-bottom: 25px;
+ 
+}
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+ 
+}
+
+/*.emp-att-dashboard-container {
+  background-image: url('./images/daluhenabg.png');
+  background-position: center;
+  background-size: 100% 100%; 
+  min-height: 100vh;
+  width: 100%; 
+  margin: 0; 
+  padding: 0; 
+  overflow: hidden;
+}*/
+
+
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000000;
+}
+
+/* Side NavBar CSS styles  */
+/* Side Header */
+.emp-att-brand {
+  
+  text-align: center;
+  border-bottom: 1px solid #1E421D;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+ 
+}
+.emp-att-brand span {
+  display: block;
+  color: white;
+  font-weight: bold;
+  line-height: 1.2; /* Ensure proper line height */
+}
+.emp-att-side-nav {
+  width: 225px;
+  height: 650px;
+  /*height: 630px; Ensure proper line height */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #ffffffef; /* Transparent white background */
+  padding-top: 10px;
+  border-radius: 15px;
+  margin: 10px;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.emp-att-navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emp-att-nav-item {
+  padding: 10px;
+  border-radius: 5px;
+  transition: border-radius 0.3s, background-color 0.3s;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.emp-att-nav-link {
+  
+    text-decoration: none;
+    font-size: 16px;
+    color: #1E421D;
+    padding: 10px 10px; /* Adjust padding */
+    display: block;
+    width: 150px; /* Fixed width for all nav-links */
+    border: 1px solid #1E421D;
+    border-radius: 50px; /* Make it round */
+    margin-bottom: 0px; /* Adjust as needed */
+  }
+  .emp-att-nav-link:hover,
+  .emp-att-nav-link:focus { /* Add :focus pseudo-class */
+    background-color: #1E421D; /* Changed hover color */
+    color: #fff; /* Changed text color */
+    border-radius: 50px;
+  }
+  .emp-att-nav-link.active {
+    background-color: #1E421D;
+    color: #fff !important; /* Font color set to white */
+    border-radius: 50px;
+  }
+  .emp-att-nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  .emp-att-add-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .emp-att-home-icon{
+    margin-right: 20px;
+  }
+  
+  .emp-att-nav-link .emp-att-nav-icon {
+    filter: invert(00%);
+  }
+  
+  .emp-att-nav-link:hover .emp-att-nav-icon,
+  .emp-att-nav-link.active .emp-att-nav-icon {
+    filter: invert(100%);
+  }
+
+/*logout button */
+.emp-att-logout-btn {
+  background-color: #aa0e0e; /* Change to your desired color */
+  color: #fff;
+  border: none;
+  margin-top: 8px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px; /* Adjust padding to increase button height */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.emp-att-logout-btn:hover {
+  background-color: #B30000; /* Change to your desired hover color */
+  transform: translateY(-2px);
+}
+
+.emp-att-logout-btn:active {
+  background-color:#B30000; 
+  transform: translateY(1px);
+}
+/* Side NavBar CSS styles End */
+
+
+
+
+
+/* DashBoard Tiles styles */
+/* DashBoard Tiles styles */
+.emp-att-dashboard-container-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  min-height: calc(100vh - 40px); /* Subtracting space for the navbar */
+  margin-left: 225px;
+}
+
+.emp-att-tiles-container {
+  background-color: rgba(255, 255, 255, 0.7); /* Lighter background color */
+  border-radius: 15px; /* Rounded corners */
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.emp-att-total-count {
+  margin-bottom: 10px; /* Space between total count and tiles */
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+}
+
+.emp-att-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.emp-att-tile {
+  width: calc(33.33% - 10px); /* Adjust tile width based on desired layout */
+  margin-bottom: 10px;
+  background-color: #ffffff; /* White background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-decoration: none; /* Remove underline */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.emp-att-tile:hover {
+  transform: translateY(-5px); /* Move tile slightly upwards on hover */
+  border-radius: 10px; /* Rounded corners */
+}
+.emp-att-tile:active {
+  transform: translateY(1px); /* Move tile slightly upwards on hover */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.emp-att-tile-content {
+  height: 120px; /* Fixed height for tile content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emp-att-btn-tile {
+  padding: 15px 20px; /* Add padding for button */
+  font-size: 25px; /* Adjust font size */
+  text-align: center; /* Center align text */
+  background-color: transparent; /* Transparent button background color */
+  color: #000000; /* Black button text color */
+  border: none; /* Remove button border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+  width: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.emp-att-btn-tile:hover {
+  background-color: #ffffff; /* Lighter background color on hover */
+  border-radius: 10px; /* Rounded corners */
+  
+}
+.emp-att-btn-tile:active {
+  background-color: #f2f2f2; /* Lighter background color on hover */
+  border-radius: 10px; /* Rounded corners */
+  
+}
+
+
+.emp-att-btn-tile:focus {
+  color: inherit; /* Use the default text color */
+  text-decoration: none; /* Remove underline */
+}
+
+
+/*Form css add*/
+.emp-att-form-control, .emp-att-form-select {
+  width: 500px; /* Adjust the width as needed */
+  padding-left: 10px;
+  padding-right: 20px;
+  height: 37px;
+  border-radius: 8px; 
+  border: 1px solid #ced4da; /* Refined border width */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for a subtle inset effect */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for interactions */
+}
+
+.emp-att-form-control:focus, .emp-att-form-select:focus {
+  outline: none;
+  border-color: #80bdff; /* Highlighted border color on focus */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.2); /* Outer glow effect on focus */
+
+}
+
+/*Attendance Form select values*/
+.emp-att-form-selectAttendance{
+  width: 150px; /* Adjust width as needed */
+  height: 31px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin: 0 auto; /* Set horizontal margin to auto */
+  display: block; /* Ensure it takes up the full width */
+}
+.emp-att-form-selectAttendance:focus{
+  outline: none;
+  border-color: #80bdff; /* Highlighted border color on focus */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.2); /* Outer glow effect on focus */
+
+}
+
+
+
+
+/*Form css add
+.form-container {
+  display: flex;
+  justify-content: center;
+  overflow: hidden; 
+  margin-top: 50px; 
+  margin-bottom: 50px;
+  padding: 20px;
+  
+}
+.form-card {
+  backdrop-filter: blur(10px); 
+  background-color: rgba(255, 255, 255, 0.5); 
+  border-radius: 30px; /* Softened rounded corners 
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); 
+  border: 1px solid rgba(255, 255, 255, 0.18); 
+  padding: 20px;
+  overflow: hidden;
+}
+
+.form-control, .form-select {
+  width: 350px; 
+  border-radius: 15px; 
+  border: 1px solid #ced4da; 
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+  transition: border-color 0.3s, box-shadow 0.3s; 
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #80bdff; 
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.2); 
+
+}
+
+.form-selectAttendance{
+  width: 150px; 
+  height: 31px;
+  font-size: 13px;
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin: 0 auto; 
+  display: block; 
+}
+*/
+
+/* Button styling for a more engaging with UX */
+
+/*Buttons For Submit data*/
+
+.emp-att-btn-primary {
+  background-color: #009959; /* Green */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 15px;
+  width: 150px; /* Change the width as needed */
+  height: 50px; /* Change the height as needed */
+  transition: transform 0.3s, box-shadow 0.3s;
+
+}
+.emp-att-btn-primary:hover {
+  background-color: #1E421D; 
+  transform: translateY(-2px);
+}
+.emp-att-btn-primary:active {
+  background-color: #1E421D; 
+  transform: translateY(1px);
+}
+/*Css for All documents buttons and input fields*/
+/*All Documents*/
+      .AttendancedateSelect {
+        font-weight: bold;
+        border-radius: 5px;
+        text-align: center;
+        margin-left: 5px;
+        padding: 6px;
+        transform: translateY(1px);
+        background-color: rgba(255, 255, 255, 0.5); /* Refined transparency for a cleaner look */
+        backdrop-filter: blur(100px); /* Slightly increased blur for a smoother effect */
+        width: 190px; /* Adjust the width as needed */
+        border-radius: 15px; 
+        border: 1px solid #ced4da; /* Refined border width */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5); /* Inner shadow for a subtle inset effect */
+        transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for interactions */
+        padding-right: 15px;
+      }
+      .AttendancedateSelect:focus {
+        outline: none;
+        border-color: #80bdff; /* Highlighted border color on focus */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Outer glow effect on focus */
+      }
+      /*Date Selector*/
+      .emp-att-dateSelect {
+        text-align: center;
+        width: 180px; /* width */
+        height: 40px; /* height */
+        border-radius: 15px; 
+        border: 1px solid #ced4da; /* Refined border width */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5); /* Inner shadow for a subtle inset effect */
+        transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for interactions */
+        margin-bottom: 10px;
+        padding-right: 10px;
+        
+      }
+      .emp-att-dateSelect:focus {
+        outline: none;
+        border-color: #80bdff; /* Highlighted border color on focus */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Outer glow effect on focus */
+      
+      }
+
+      .selectItem {
+        text-align: center;
+        width: 200px; /* width */
+        height: 40px; /* height */
+        border-radius: 15px; 
+        border: 1px solid #ced4da; /* Refined border width */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5); /* Inner shadow for a subtle inset effect */
+        transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for interactions */
+        margin-bottom: 10px;
+        padding-left: 10px;
+        
+      }
+      .btn-for-generateReport {
+        margin-left: 30px;
+        border-radius: 10px;
+        width: 150px; /* width */
+        height: 40px; /* height */
+        border: 1px solid #ced4da; /* Refined border width */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9); /* Inner shadow for a subtle inset effect */
+        transition: border-color 0.3s, box-shadow 0.3s; 
+        font-weight: bold;
+        
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .btn-for-generateReport:hover {
+          transform: translateY(-1px); 
+         
+      }
+        
+      .btn-for-generateReport:active {
+          transform: translateY(1px); 
+        
+      }
+
+/* end Css for All documents buttons and input fields*/
+
+/*Cancel Button*/
+
+.emp-att-btn-secondary {
+  background-color: #C70000; 
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 15px;
+  width: 150px; /* width */
+  height: 50px; /* height */
+  transition: transform 0.3s, box-shadow 0.3s;
+
+}
+.emp-att-btn-secondary:hover {
+  background-color: #B30000; 
+  transform: translateY(-2px);
+}
+.emp-att-btn-secondary:active {
+  background-color:#B30000; 
+  transform: translateY(1px);
+}
+/*Alerts*/
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  
+} 
+
+
+/*Buttons For Edit and update*/
+
+.btn-success {
+  background-image: linear-gradient(to right, #00b09b, #49c93d7e); /* Gradient background */
+  border: none; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 10px #1E421D; 
+  transition: transform 0.3s, box-shadow 0.3s; /* Enhanced transitions for interaction */
+}
+
+.btn-success:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 12px #1E421D; 
+}
+
+.btn-success:active {
+  transform: translateY(1px); 
+ 
+}
+
+/*Buttons For Delete*/
+.btn-danger{
+  border-radius: 10px; 
+  box-shadow: 0 2px 10px #680707 ; 
+  transition: transform 0.3s, box-shadow 0.3s; 
+
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 12px #a11010; 
+}
+.btn-danger:active {
+  transform: translateY(1px); 
+ 
+}
+
+/*Button Styles End*/
+
+/* Table styles 
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #FAFAFA;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+td {
+  font-size: 14px; 
+  padding: 8px;
+  height: 15px;
+}
+
+th {
+  background-color: #333652;
+  color: white;
+  font-size: 14px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #F3F3F3;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #E8E8E8;
+}
+
+tbody tr:hover {
+  background-color: #CFD8DC;
+}
+*/

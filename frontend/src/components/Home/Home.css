@@ -1,0 +1,166 @@
+.home-container {
+  padding: 20px;
+  background-image: url('../../images/DashboardBackground.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Use min-height to ensure the background covers the entire viewport */
+  overflow: hidden; /* Hide any overflow content */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Align content horizontally to center */
+  background-color: #1e421d;
+  padding: 10px;
+  border-radius: 8px; /* Add border-radius to the header tile container */
+  margin-bottom: 20px; /* Adjust margin to fit within viewport */
+}
+
+.logo {
+  width: 100px; /* Increase the size of the logo */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Adjust the spacing between the logo and the title */
+}
+
+.title-container {
+  background-color: #1e421d; /* Background color for the title container */
+  padding: 10px; /* Add padding to the title container */
+  border-radius: 8px; /* Add border-radius to the title container */
+  margin-bottom: 20px; /* Add margin-bottom to create a gap between the green box and white boxes */
+  /* text-align: center; Align the title to the center */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.tiles-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Distribute items evenly along the main axis */
+  margin-top: 10px; /* Add margin-top to create a gap between the green box and white boxes */
+  
+}
+
+.tile {
+  width: calc(25% - 10px); /* Adjust width to occupy 25% of the container's width */
+  margin-bottom: 10px; /* Add margin-bottom for spacing between rows */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.tile a {
+  
+  margin: 10px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px rgba(50, 143, 58, 0.9);
+  border-radius: 8px;
+  text-decoration: none; /* Remove underlines from links */
+  color: inherit; /* Inherit text color from parent */
+  transition: transform 0.4s, box-shadow 0.4s;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  
+}
+
+.tile a:hover {
+  text-decoration: none; /* Remove underline on hover */
+  transform: translateY(-5px); /* Move tile slightly upwards on hover */
+  border-radius: 10px; /* Rounded corners */
+}
+.tile a:active {
+  transform: translateY(1px); /* Move tile slightly upwards on hover */
+  border-radius: 10px; /* Rounded corners */
+}
+
+@media (max-width: 768px) {
+  .tile {
+    width: calc(50% - 20px); /* For smaller screens, occupy 50% of the container's width */
+  }
+
+}
+.tile h2 {
+  font-size: 25px;
+}
+.footer {
+  background-color: #1e421d;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+.tile-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.icon-container {
+  width: 80px; /* Adjust the width of the container */
+  height: 80px; /* Adjust the height of the container */
+}
+
+.tile-icon {
+  width: 100%; /* Make the icon fill its container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.tile-title {
+  margin-top: 10px; /* Add margin between the icon and title */
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*margin-bottom: 10px;  Add margin below the social icons */
+}
+
+
+.social-icon {
+  width: 60px; /* Adjust the width of the social icons */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0 10px; /* Add margin between the icons */
+}
+.social-icon2 {
+  width: 80px; /* Adjust the width of the social icons */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0 10px; /* Add margin between the icons */
+}
+.social-icon3 {
+  width: 95px; /* Adjust the width of the social icons */
+  height: auto; /* Maintain aspect ratio */
+  padding-top: 7px;
+  margin: 0 10px; /* Add margin between the icons */
+}
+.social-icon4 {
+  width: 80px; /* Adjust the width of the social icons */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0 10px; /* Add margin between the icons */
+}
