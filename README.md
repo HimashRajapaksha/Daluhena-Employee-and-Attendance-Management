@@ -1,6 +1,6 @@
 ## Daluhena Tea Estate Management System
 
-## Employee and Attendance Management Module
+## Employee and Attendance Management
 
 ### Overview
 
