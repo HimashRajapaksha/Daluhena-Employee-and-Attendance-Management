@@ -25,8 +25,8 @@ export default function Home() {
         </div>
       </div>
       <div className="tiles-container">
-        <Tile title="Fertilizer and Supplier Management" to="/login" icon={FertilizerIcon} />
-        <Tile title="Employee and Attendance Management" to="/emplogin" icon={EmployeeIcon} />
+        <Tile title="Fertilizer and Supplier Management"  icon={FertilizerIcon} />
+        <Tile title="Employee and Attendance Management" to="/login" icon={EmployeeIcon} />
         <Tile title="Harvest and Inventory Management" icon={HarvestIcon} />
         <Tile title="Maintenance and Repairs Management" icon={MaintenanceIcon} />
         <Tile title="Pickup Schedule and Delivery Management" icon={PickupIcon} />

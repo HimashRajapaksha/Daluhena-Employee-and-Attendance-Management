@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   downloadContainer: {
     position: 'absolute',
-    top: 15,
+    top: 115,
     right: 50,
     padding: '10px',
   }

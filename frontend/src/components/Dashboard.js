@@ -1,318 +1,198 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import Chart from "chart.js/auto";
-import 'chartjs-adapter-moment';
-import backgroundImage from '../images/DashboardBackground.png';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+//import backgroundImage from '../images/DashboardBackground.png'; 
+import backgroundImage from '../images/daluhenabg.png'; 
+import employeeIcon from '../icons/employee.png';
+import AttendanceIcon from '../icons/attendance.png';
+import LeaveIcon from '../icons/leave.png';
+import { Bar, Pie } from 'react-chartjs-2';
+import 'chart.js/auto';
 
-export default function Dashboard() {
-  const [fertilizers, setFertilizers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredFertilizers, setFilteredFertilizers] = useState([]);
-  const [filters, setFilters] = useState({
-    name: false,
-    type: false,
-    manufacturer: false,
-    quantity: false,
-    manufacturedDate: false,
-    expiredDate: false
-  });
-  const barChartRef = useRef(null);
-  const lineChartRef = useRef(null);
+function Dashboard() {
+  // State variables for employee count, attendance counts, and job role counts
+  const [employeeCount, setEmployeeCount] = useState(0);
+  const [attendanceCounts, setAttendanceCounts] = useState(null);
+  const [jobRoleCounts, setJobRoleCounts] = useState([]);
 
+  // useEffect to fetch data on component mount
   useEffect(() => {
-    axios.get("http://localhost:8070/fertilizer")
+    // Fetch total employee count
+    axios.get('http://localhost:8070/employee/count')
       .then(response => {
-        setFertilizers(response.data);
-        setFilteredFertilizers(response.data);
+        setEmployeeCount(response.data.count);
       })
       .catch(error => {
-        console.error("Error fetching fertilizers:", error);
+        console.error('Error fetching employee count:', error);
+      });
+
+    // Fetch attendance count for the current date
+    axios.get('http://localhost:8070/EmployeeAttendance/attendance-count')
+      .then(response => {
+        setAttendanceCounts(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching attendance count:', error);
+      });
+
+    // Fetch count of employees by job role
+    axios.get('http://localhost:8070/employee/jobrole-count')
+      .then(response => {
+        setJobRoleCounts(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching job role counts:', error);
       });
   }, []);
 
-  // Function to handle search
-  const handleSearch = (event) => {
-    const term = event.target.value.toLowerCase();
-    setSearchTerm(term);
-    const filtered = fertilizers.filter(fertilizer => {
-      return (
-        (filters.name && fertilizer.fertilizerName.toLowerCase().includes(term)) ||
-        (filters.type && fertilizer.fertilizerType.toLowerCase().includes(term)) ||
-        (filters.manufacturer && fertilizer.manufacturer.toLowerCase().includes(term)) ||
-        (filters.quantity && String(fertilizer.quantity).includes(term)) ||
-        (filters.manufacturedDate && fertilizer.manufacturedDate.toLowerCase().includes(term)) ||
-        (filters.expiredDate && fertilizer.expiredDate.toLowerCase().includes(term))
-      );
-    });
-    setFilteredFertilizers(filtered);
+  // Prepare data for pie chart
+  const pieChartData = {
+    labels: ['Present', 'Absent'],
+    datasets: [
+      {
+        label: 'Attendance',
+        data: attendanceCounts ? [attendanceCounts.presentCount, attendanceCounts.absentCount] : [0, 0],
+        backgroundColor: [
+          //'rgba(75, 192, 192, 0.9)',
+          //'rgba(255, 99, 132, 0.9)',
+          'rgba(22, 160, 133)',
+          'rgba(203, 75, 53)',
+        ],
+        borderWidth: 1,
+      },
+    ],
   };
 
-  // Function to handle checkbox change
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    setFilters(prevState => ({ ...prevState, [name]: checked }));
+  // Prepare data for bar chart
+  const barChartData = {
+    labels: jobRoleCounts.map(item => item._id),
+    datasets: [
+      {
+        label: 'Employee Count by Job Role',
+        data: jobRoleCounts.map(item => item.count),
+        backgroundColor: [ // Specify an array of colors for each bar
+          'rgba(54, 162, 235)',
+          'rgba(75, 192, 192)',
+          'rgba(153, 102, 255)',
+          'rgba(255, 159, 64)',
+          'rgba(255, 99, 132)',
+          'rgba(54, 162, 235)',
+          'rgba(255, 206, 86)',
+          'rgba(75, 192, 192)',
+          // Add more colors as needed
+        ],
+        borderWidth: 1,
+      },
+    ],
   };
-
-  // Function to get the list of columns to display based on selected checkboxes
-  const getColumns = () => {
-    const columns = [];
-    if (filters.name) columns.push("Name");
-    if (filters.type) columns.push("Type");
-    if (filters.manufacturer) columns.push("Manufacturer");
-    if (filters.quantity) columns.push("Quantity (kg)");
-    if (filters.manufacturedDate) columns.push("Manufactured Date");
-    if (filters.expiredDate) columns.push("Expired Date");
-    return columns;
-  };
-
-  useEffect(() => {
-    if (barChartRef.current) {
-      if (barChartRef.current.chart) {
-        barChartRef.current.chart.destroy();
-      }
-      const ctx = barChartRef.current.getContext("2d");
-      const organicAmount = fertilizers.reduce((total, fertilizer) => {
-        if (fertilizer.fertilizerType.toLowerCase() === "organic") {
-          return total + fertilizer.quantity;
-        }
-        return total;
-      }, 0);
-      const mineralAmount = fertilizers.reduce((total, fertilizer) => {
-        if (fertilizer.fertilizerType.toLowerCase() === "mineral") {
-          return total + fertilizer.quantity;
-        }
-        return total;
-      }, 0);
-      barChartRef.current.chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Organic', 'Mineral'],
-          datasets: [{
-            label: 'Organic',
-            data: [organicAmount, 0],
-            backgroundColor: '#1E421D', // Specify color for organic bars
-            borderColor: '#1E421D',
-            borderWidth: 1
-          }, {
-            label: 'Mineral',
-            data: [0, mineralAmount],
-            backgroundColor: '#A9B523', // Specify color for mineral bars
-            borderColor: '#A9B523',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function(value) {
-                  return value + ' kg';
-                },
-                color: '#121400'
-              }
-            },
-            x: {
-              ticks: {
-                color: '#121400' 
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              labels: {
-                color: '#000000', // Set the font color to black
-                font: {
-                  size: 14 // Increase font size
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-  }, [fertilizers]);
-  
-  
-  useEffect(() => {
-    if (lineChartRef.current) {
-      if (lineChartRef.current.chart) {
-        lineChartRef.current.chart.destroy();
-      }
-      const ctx = lineChartRef.current.getContext("2d");
-      const dates = fertilizers.map(fertilizer => new Date(fertilizer.manufacturedDate));
-      const quantities = fertilizers.map(fertilizer => fertilizer.quantity);
-      lineChartRef.current.chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: dates,
-          datasets: [{
-            label: 'Fertilizer Usage Trends',
-            data: quantities,
-            fill: false,
-            borderColor: '#1E421D',
-            tension: 0.1,
-          }]
-        },
-        options: {
-          scales: {
-            x: {
-              type: 'time',
-              time: {
-                unit: 'month'
-              },
-              ticks: {
-                autoSkip: true,
-                maxTicksLimit: 10,
-                color: '#121400' // Change text color to a darker shade
-              }
-            },
-            y: {
-              beginAtZero: true,
-              ticks: {
-                color: '#121400' // Change text color to a darker shade
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              labels: {
-                color: '#000000', // Set the font color to black
-                font: {
-                  size: 14 // Increase font size
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-  }, [fertilizers]);
-  
-
   
   return (
-    <div className="fertilizer-transparent-box" style={{ marginLeft: "270px", paddingLeft: "20px", paddingRight: "20px", paddingTop: "20px"}}>
-  <div style={{ textAlign: "center" }}>
-    <h1 style={{ marginBottom: "20px", color: "white", backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', padding: '50px 70px' }}>Welcome to Dashboard</h1>
-    <div style={{ marginBottom: "20px" }}> 
-    <input
-        type="text"
-        placeholder="Search for available fertilizers..."
-        value={searchTerm}
-        onChange={handleSearch}
-        style={{
-          marginRight: "10px",
-          padding: "8px",
-          width: "calc(100% - 200px)",
-          borderRadius: "15px", // Add border radius
-          border: "1px solid #ccc", // Add border
-        }}
-      />
+    <div className="emp-att-dashboard-container-view" style={{  
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      minHeight: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: '0',
+      padding: '0'
+    }}>
+      <div className="main-content" style={{ marginLeft: '250px', marginRight: '30px', paddingTop: '15px' }}>
+        <div className="emp-att-tiles-container" >
+          {/* Total Employee Count Section */}
+          <div className="emp-att-total-count">
+            <span>Total Employee Count: {employeeCount}</span>
+          </div>
 
-      <p style={{ fontSize: "0.9rem", marginTop: "5px", color: "#666" }}>
-        Enter your query in the search box above. You can filter by selecting the checkboxes for the specific fields you want to include in the search.
-      </p>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <label style={{ marginRight: "20px" }}>
-          <input
-            type="checkbox"
-            name="name"
-            checked={filters.name}
-            onChange={handleCheckboxChange}
-          />
-          Fertilizers
-        </label>
-        <label style={{ marginRight: "20px" }}>
-          <input
-            type="checkbox"
-            name="type"
-            checked={filters.type}
-            onChange={handleCheckboxChange}
-          />
-          Type
-        </label>
-        <label style={{ marginRight: "20px" }}>
-          <input
-            type="checkbox"
-            name="manufacturer"
-            checked={filters.manufacturer}
-            onChange={handleCheckboxChange}
-          />
-          Manufacturer
-        </label>
-        <label style={{ marginRight: "20px" }}>
-          <input
-            type="checkbox"
-            name="quantity"
-            checked={filters.quantity}
-            onChange={handleCheckboxChange}
-          />
-          Quantity
-        </label>
-        <label style={{ marginRight: "20px" }}>
-          <input
-            type="checkbox"
-            name="manufacturedDate"
-            checked={filters.manufacturedDate}
-            onChange={handleCheckboxChange}
-          />
-          Manufactured Date
-        </label>
-        <label style={{ marginRight: "20px" }}>
-          <input
-            type="checkbox"
-            name="expiredDate"
-            checked={filters.expiredDate}
-            onChange={handleCheckboxChange}
-          />
-          Expired Date
-        </label>
+          {/* Tiles Section */}
+          <div className="emp-att-tiles">
+            <a href="/all-employees" className="emp-att-tile">
+              <div className="emp-att-btn-tile" >
+                <img src={employeeIcon} alt="Employee Icon" style={{ width: '50px', height: '50px' }} />
+                <span style={{ display: 'block', textAlign: 'center' }}>Employee Details</span>
+              </div>
+            </a>
+            <a href="/all-attendance-details" className="emp-att-tile">
+              <div className="emp-att-btn-tile" >
+                <img src={AttendanceIcon} alt="Attendance Icon" style={{ width: '55px', height: '55px' }} />
+                <span style={{ display: 'block', textAlign: 'center' }}>Employee Attendance Details</span>
+              </div>
+            </a>
+            <a href="/all-leave-details" className="emp-att-tile">
+              <div className="emp-att-btn-tile" >
+                <img src={LeaveIcon} alt="Leave Icon" style={{ width: '50px', height: '50px' }} />
+                <span style={{ display: 'block', textAlign: 'center' }}>Employee Leave Status</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {/* Attendance and Job Role Charts Section */}
+        <div className="emp-att-charts-section" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
+          {/* Attendance Count Section */}
+          <div className="emp-att-attendance-count" style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ width: '400px', height: '330px', backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '10px', padding: '10px', marginTop: '8px', marginBottom: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'hidden' }}>
+              {attendanceCounts && (attendanceCounts.presentCount || attendanceCounts.absentCount) ? (
+                <>
+                  <span style={{ fontWeight:'bold' }}>Today's Attendance Count: Present - {attendanceCounts.presentCount}, Absent - {attendanceCounts.absentCount}</span>
+                  <Pie 
+                    data={pieChartData} 
+                    options={{
+                      maintainAspectRatio: false,
+                      responsive: true,
+                      plugins: { legend: { display: true } },
+                      layout: {
+                        padding: { top: 30, bottom: 30, left: 30, right: 30 } // Adjust the padding
+                      }
+                    }}
+                  />
+                </>
+              ) : (
+                <span style={{ fontWeight:'bold' }}>Today's Attendance is not yet marked</span>
+              )}
+            </div>
+          </div>
+
+          {/* Job Role Count Section */}
+          <div className="emp-att-jobrole-count" style={{ width: '60%', display: 'flex', flexDirection: 'column', alignItems: 'center',fontWeight:'bold'}}>
+            <div style={{ width: '500px', height: '330px', backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '10px', padding: '20px', marginTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <span>Employee count with Job Role</span>
+              <Bar 
+                data={barChartData} 
+                options={{
+                  maintainAspectRatio: false, 
+                  responsive: true, 
+                  plugins: { legend: { display: false} }, 
+                  scales: { 
+                    y: { 
+                      beginAtZero: true,
+                      type: 'linear',
+                      ticks: {
+                        stepSize: 1
+                      },
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Count of Employees'
+                      }
+                    },
+                    x: {
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Job Roles'
+                      }
+                    }
+                  }, 
+                  layout: { padding: { top: 30, bottom: 30 } }, 
+                  height: 200 
+                }} 
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <table className="fertilizer-table" style={{ width: "100%", borderCollapse: "collapse", margin: "0 auto" }}>
-      <thead>
-        <tr>
-          {getColumns().map(column => (
-            <th key={column} style={{ border: "1px solid #dddddd", padding: "8px" }}>{column}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {filteredFertilizers.map(fertilizer => (
-          <tr key={fertilizer._id}>
-            {getColumns().map(column => (
-              <td key={column} style={{ border: "1px solid #dddddd", padding: "8px", textAlign: "center" }}>
-                {column === "Name" && fertilizer.fertilizerName}
-                {column === "Type" && fertilizer.fertilizerType}
-                {column === "Manufacturer" && fertilizer.manufacturer}
-                {column === "Quantity (kg)" && fertilizer.quantity}
-                {column === "Manufactured Date" && new Date(fertilizer.manufacturedDate).toISOString().split('T')[0]}
-                {column === "Expired Date" && new Date(fertilizer.expiredDate).toISOString().split('T')[0]}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
-  <div style={{ flex: "1", marginRight: "10px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-    <div style={{ backgroundColor: "rgba(240, 240, 240, 0.9)", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", width: "100%", height: "350px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <canvas ref={barChartRef} style={{ width: "80%", height: "80%" }}></canvas>
-    </div>
-  </div>
-  <div style={{ flex: "1", marginLeft: "10px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-    <div style={{ backgroundColor: "rgba(240, 240, 240, 0.9)", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", width: "100%", height: "360px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <canvas ref={lineChartRef} style={{ width: "80%", height: "80%" }}></canvas>
-    </div>
-  </div>
-</div>
-
-
-
-
-</div>
-
   );
 }
+
+export default Dashboard;

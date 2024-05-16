@@ -47,7 +47,7 @@ function ViewMoreEmployee() {
 
     return (
         <div className="emp-att-background-container">
-            <div className="emp-att-container mt-3" style={{ maxWidth: "calc(100% - 205px)", paddingLeft: "20px" ,paddingBottom: "20px",paddingTop: "10px" }}>
+            <div className="emp-att-container mt-3" style={{ maxWidth: "calc(100% - 205px)", paddingLeft: "20px" ,paddingBottom: "20px",paddingTop: "10px",paddingRight:"30px" }}>
                 <h1>All Employees</h1>
                 <div className="mb-3 input-group">
                     <span className="input-group-text">

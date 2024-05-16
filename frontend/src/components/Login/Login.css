@@ -75,7 +75,7 @@
 
 .login-input[type="text"],
 .login-input[type="password"] {
-  padding: 10px 40px 10px 40px;
+  padding: 10px;
   width: 300px;
   margin-bottom: 16px;
   border: 1px solid #ccc;

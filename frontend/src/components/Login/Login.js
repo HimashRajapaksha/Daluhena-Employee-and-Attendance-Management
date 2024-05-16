@@ -3,8 +3,8 @@ import axios from 'axios';
 import './Login.css'; // Import the CSS file
 import loginBG from '../../images/loginBG.png'; // Import the loginBG image file
 import loginBG2 from '../../images/daluhenabg.png'; // Import the loginBG image file
-import userNameIcon from '../../images/Icons/userName.png'; // Import the username icon
-import passwordIcon from '../../images/Icons/password.png'; // Import the password icon
+import userNameIcon from '../../icons/userName.png'; // Import the username icon
+import passwordIcon from '../../icons/password.png'; // Import the password icon
 
 function Login() {
   // State variables
